@@ -1,0 +1,6 @@
+---
+apache_vhosts:
+  # Additional properties: 'serveradmin, serveralias, extra_parameters'.
+  - servername: "getel.cecmed.local"
+    documentroot: "/var/www/getel.cecmed.local"
+    serveralias: "getel.cecmed.local"

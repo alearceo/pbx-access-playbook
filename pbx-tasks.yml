@@ -1,0 +1,17 @@
+---
+- name: PBX Access Server - Configuration Tasks
+  hosts: pbx-access
+  vars_files:
+    - vars/main.yml
+  roles:
+    - { role: geerlingguy.apache }
+    - { role: geerlingguy.php }
+  tasks:
+    - name: cron job to clean pbx output file every 5 min
+      cron: name="cleaning pbx output every 5min" minute=*/5 job="/opt/pbx-access/pbx-output > /dev/null 2>&1" user=root state=present
+
+    - name: creating app directory
+      file: path=/var/www/getel.cecmed.local state=directory mode=0755
+
+    - name: copy info.php
+      copy: src=files/info.php dst=/var/www/getel.cecmed.local/info.php
