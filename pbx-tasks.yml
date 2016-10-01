@@ -14,4 +14,14 @@
       file: path=/var/www/getel.cecmed.local state=directory mode=0755
 
     - name: copy info.php
-      copy: src=files/info.php dst=/var/www/getel.cecmed.local/info.php
+      copy: src=files/info.php dest=/var/www/getel.cecmed.local/info.php
+
+    - name: install postgresql
+      yum: name=postgresql-server state=latest
+
+    - name: initialize postgresql
+      command: /bin/postgresql-setup initdb
+      notify: restart postgresql
+  handlers:
+    - name: restart postgresql
+      service: name=postgresql state=restarted
